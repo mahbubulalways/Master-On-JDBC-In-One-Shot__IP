@@ -12,7 +12,7 @@ public class Demo2 {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection connection = DriverManager.getConnection(URL,USER,PASSWORD);
             Statement statement = connection.createStatement();
-            
+
 //          INSERT
 
           String queryString= "INSERT INTO students(name, age, marks) VALUES(?, ?, ?)";
@@ -39,6 +39,21 @@ public class Demo2 {
             deleteStatement.setInt(1, 14);
             int delete =deleteStatement.executeUpdate();
             System.out.println(delete);
+
+//            GET MARKS SPECIFIC STUDENT
+            String getMarks = "SELECT marks FROM students WHERE id = ?";
+            PreparedStatement getMarksStatement = connection.prepareStatement(getMarks);
+            getMarksStatement.setInt(1, 13);
+            ResultSet particularMark =  getMarksStatement.executeQuery();
+            while (particularMark.next()) {
+//                int id = particularMark.getInt("id");
+//                String name = particularMark.getString("name");
+//                int age = particularMark.getInt("age");
+                double marks = particularMark.getDouble("marks");
+//                System.out.println(id + " " + age + " " + name + " " + marks);
+                System.out.println(marks);
+            }
+
 
 
 //
